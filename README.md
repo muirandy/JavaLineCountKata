@@ -1,0 +1,1 @@
+Implementation of Java Line Counting kata, found <a href="http://codekata.com/kata/kata13-counting-code-lines/">here</a>
