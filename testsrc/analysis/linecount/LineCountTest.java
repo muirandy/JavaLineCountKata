@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +27,14 @@ public class LineCountTest {
 
     @Test
     public void emptyFileHasZeroCount() {
-        File file = new File("testresources/emptyFile.java");
+        File file = getFile("emptyFile.java");
         int count = lineCount.countLines(file);
         assertEquals(0, count);
     }
 
     @Test
     public void bareClassHasCount() {
-        File file = new File("testresources/ClassDeclaration.java");
+        File file = getFile("ClassDeclaration.java");
         int count = lineCount.countLines(file);
         assertEquals(2, count);
     }
@@ -136,6 +138,18 @@ public class LineCountTest {
         lines.add("  comment          ");
         int count = lineCount.count(lines.stream());
         assertEquals(2, count);
+    }
+
+    private File getFile(String filename) {
+        URL url = LineCountTest.class.getClassLoader().getResource(filename);
+        File f;
+        try {
+            f = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            f = new File(url.getPath());
+        }
+
+        return f;
     }
 
 }

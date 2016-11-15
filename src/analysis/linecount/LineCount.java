@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.util.stream.Stream;
 
 public class LineCount {
-    private boolean alreadyInBlock = false;
+    private boolean alreadyInBlock;
 
     public int countLines(File file) {
         try {
